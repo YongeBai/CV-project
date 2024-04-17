@@ -1,0 +1,7 @@
+numpy
+timm
+transformers
+torch
+torchvision
+pillow
+matplotlib
