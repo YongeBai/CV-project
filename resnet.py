@@ -90,14 +90,14 @@ class BasicBlock(nn.Module):
         self.relu = nn.ReLU(inplace=True)
     
     def forward(self, x):
-        identify = x
+        identity = x
 
         x = self.relu(self.bn1(self.conv1(x)))
         x = self.bn2(self.conv2(x))
 
         if self.downsampling is not None:
-            identify = self.downsampling(identify)
-        x += identify
+            identity = self.downsampling(identity)
+        x += identity
         x = self.relu(x)
         return x
 
@@ -128,7 +128,7 @@ class ResNet(nn.Module):
         )
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(2048, num_classes)
+        self.fc = nn.Linear(512*Block.expansion, num_classes)
 
     def forward(self, x):
         x = self.relu(self.bn1(self.conv1(x)))
